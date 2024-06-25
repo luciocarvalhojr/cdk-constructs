@@ -1,7 +1,7 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as pipelines from 'aws-cdk-lib/pipelines';
-import { TmPipeline, TmPipelineProps } from '../../../src';
+//import { TmPipeline, TmPipelineProps } from '../../../src';
 import { TmPipelineAppStage } from './tm-app-stage';
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
@@ -10,6 +10,7 @@ export class TmPipelineStack extends cdk.Stack {
     super(scope, id, props);
 
   const pipeline = new pipelines.CodePipeline(this, 'TmPipelineStack', {
+    crossAccountKeys: true,
     pipelineName: 'TmPipelineStack',
     synth: new pipelines.ShellStep('Synth', {
       // From codecommit.Repository.fromRepositoryName

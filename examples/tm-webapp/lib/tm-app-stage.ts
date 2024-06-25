@@ -1,7 +1,7 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from "constructs";
 import { TmVpcbaseStack } from './tm-vpc-base-stack';
-import 
+ 
 
 export class TmPipelineAppStage extends cdk.Stage {
 
@@ -18,11 +18,11 @@ export class TmPipelineAppStage extends cdk.Stage {
       }
       
 
-      const VpcCaCentral2 = new TmVpcbaseStack(this, 'vpcCaCentral2Stack', {
+      new TmVpcbaseStack(this, 'vpcCaCentral2Stack', {
         env: caCentral1Env,
         range: '10.3.0.0/16',
       });
-      const VpcCaWest2 = new TmVpcbaseStack(this, 'vpcCaWest2Stack', {
+      new TmVpcbaseStack(this, 'vpcCaWest2Stack', {
         env: caWest1Env,
         range: '10.4.0.0/16',
       });

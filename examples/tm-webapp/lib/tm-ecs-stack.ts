@@ -5,9 +5,9 @@ import * as acm from 'aws-cdk-lib/aws-certificatemanager';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import { TmApplicationLoadBalancedFargateService, TmApplicationLoadBalancedFargateServiceProps } from './ecs/ecs-base-pattern';
 import { HostedZone } from 'aws-cdk-lib/aws-route53';
-import { ApplicationLoadBalancer, ILoadBalancerV2 } from 'aws-cdk-lib/aws-elasticloadbalancingv2';
+import { ILoadBalancerV2 } from 'aws-cdk-lib/aws-elasticloadbalancingv2';
 import { AwsManagedPrefixList } from './cloudfront/prefixList';
-import { Cluster, FargateService, ICluster, IService } from 'aws-cdk-lib/aws-ecs';
+import { FargateService, ICluster } from 'aws-cdk-lib/aws-ecs';
 
 export interface TmEcsStackProps extends cdk.StackProps {
   readonly vpc: ec2.IVpc;
