@@ -2,7 +2,7 @@
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
 import { TmRdsAuroraMysqlServerlessStack } from '../lib/tm-rds-aurora-mysql-serverless-stack';
-import { TmVpcbaseStack } from '../../../src/stacks/network/tm-vpc-base-stack';
+import { TmVpcbaseStack } from '../lib/tm-vpc-base-stack';
 import { BastionStack } from '../lib/tm-bastion-stack';
 import { TmRdsNetworkSecondaryRegionStack } from '../lib/tm-rds-network-secondary-region';
 import { TmEcsStack, TmEcsStackProps } from '../lib/tm-ecs-stack';
