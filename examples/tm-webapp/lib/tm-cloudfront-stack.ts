@@ -37,7 +37,7 @@ export class TmCloudfrontStack extends cdk.Stack {
     private logBucket: Bucket;
     private errorsBucket: Bucket;
     private errorsBucketOrigin: S3Origin;
-    private assetsBucketOrigin: HttpOrigin;
+    //private assetsBucketOrigin: HttpOrigin;
     private loadBalancerOrigin: HttpOrigin;
     private distribution: Distribution;
     private s3Deployment?: BucketDeployment;

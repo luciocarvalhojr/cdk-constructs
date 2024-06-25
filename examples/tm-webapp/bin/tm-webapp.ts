@@ -7,6 +7,7 @@ import { BastionStack } from '../lib/tm-bastion-stack';
 import { TmRdsNetworkSecondaryRegionStack } from '../lib/tm-rds-network-secondary-region';
 import { TmEcsStack, TmEcsStackProps } from '../lib/tm-ecs-stack';
 import { TmCloudfrontStack, TmCloudfrontStackProps } from '../lib/tm-cloudfront-stack';
+import { TmPipelineStack } from '../lib/tm-pipeline-stack';
 import { AwsSolutionsChecks, NagSuppressions } from 'cdk-nag';
 import { Aspects } from 'aws-cdk-lib';
 
@@ -116,6 +117,10 @@ const rdsGlobal = new TmRdsAuroraMysqlServerlessStack(app, 'TmRdsAuroraMysqlServ
   enableGlobal: true,
 });
 
+const pipelineStack = new TmPipelineStack(app, 'TmPipelineStack', {
+  env: caCentral1Env,
+});
+
 Aspects.of(app).add(new AwsSolutionsChecks({verbose: true}));
 
 NagSuppressions.addStackSuppressions(vpcCaWestStack, [
@@ -170,6 +175,12 @@ NagSuppressions.addStackSuppressions(cloudfrontStack, [
   { id: 'AwsSolutions-S1', reason: 'The S3 Bucket has server access logs disabled.' },
   { id: 'AwsSolutions-S10', reason: 'The S3 Bucket or bucket policy does not require requests to use SSL.' },
   { id: 'AwsSolutions-EC2', reason: 'The CloudFront distribution does not have an Origin Request Policy attached.' },
+]);
+
+NagSuppressions.addStackSuppressions(pipelineStack, [
+  { id: 'AwsSolutions-S1', reason: 'The S3 Bucket has server access logs disabled.' },
+  { id: 'AwsSolutions-IAM5', reason: 'The IAM entity contains wildcard permissions and does not have a cdk-nag rule suppression with evidence for those permission.' },
+  { id: 'AwsSolutions-CB4', reason: 'The CodeBuild project does not use an AWS KMS key for encryption.' },
 ]);
 
 app.synth();
