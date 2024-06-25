@@ -14,17 +14,17 @@ import { Aspects } from 'aws-cdk-lib';
 const app = new cdk.App();
 
 const caCentral1Env = {
-  //account: process.env.CDK_DEFAULT_ACCOUNT,
+  account: process.env.CDK_DEFAULT_ACCOUNT,
   region: 'ca-central-1',
 }
 
 const caWest1Env = {
-  //account: process.env.CDK_DEFAULT_ACCOUNT,
+  account: process.env.CDK_DEFAULT_ACCOUNT,
   region: 'ca-west-1',
 }
 
 const usEast1Env = {
-  //account: process.env.CDK_DEFAULT_ACCOUNT,
+  account: process.env.CDK_DEFAULT_ACCOUNT,
   region: 'us-east-1',
 }
 
@@ -181,6 +181,7 @@ NagSuppressions.addStackSuppressions(pipelineStack, [
   { id: 'AwsSolutions-S1', reason: 'The S3 Bucket has server access logs disabled.' },
   { id: 'AwsSolutions-IAM5', reason: 'The IAM entity contains wildcard permissions and does not have a cdk-nag rule suppression with evidence for those permission.' },
   { id: 'AwsSolutions-CB4', reason: 'The CodeBuild project does not use an AWS KMS key for encryption.' },
+  { id: 'AwsSolutions-KMS5', reason: 'The KMS Symmetric key does not have automatic key rotation enabled.' },
 ]);
 
 app.synth();

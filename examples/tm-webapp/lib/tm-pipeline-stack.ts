@@ -32,7 +32,10 @@ export class TmPipelineStack extends cdk.Stack {
   });
 
   pipeline.addStage(new TmPipelineAppStage(this, 'AppStage', {
-    env: {region: 'ca-central-1'},
+    env: {
+      account: process.env.CDK_DEFAULT_ACCOUNT,
+      region: 'ca-central-1'
+    },
   }));
 
 }
