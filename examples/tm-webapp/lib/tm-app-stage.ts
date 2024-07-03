@@ -14,7 +14,8 @@ export class TmPipelineAppStage extends cdk.Stage {
       }
       const caWest1Env = {
         account: process.env.CDK_DEFAULT_ACCOUNT,
-        region: 'ca-west-1',
+        //region: 'ca-west-1',
+        region: 'us-west-1',
       }
       
 
