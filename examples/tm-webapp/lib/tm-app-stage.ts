@@ -4,6 +4,8 @@ import { TmVpcbaseStack } from './tm-vpc-base-stack';
 import { BastionStack } from './tm-bastion-stack';
 import { TmEcsStack, TmEcsStackProps } from './tm-ecs-stack';
 import { TmCloudfrontStack, TmCloudfrontStackProps } from './tm-cloudfront-stack';
+import { TmRdsNetworkSecondaryRegionStack } from './tm-rds-network-secondary-region';
+import { TmRdsAuroraMysqlServerlessStack } from './tm-rds-aurora-mysql-serverless-stack';
 
 export class TmPipelineAppStage extends cdk.Stage {
 
@@ -35,12 +37,12 @@ export class TmPipelineAppStage extends cdk.Stage {
         range: '10.4.0.0/16',
       });
 
-      new BastionStack(this, 'BastionCaWestStack', {
+      const bastionCaWestStack = new BastionStack(this, 'BastionCaWestStack', {
         vpc: vpcCaWestStack.vpc,
         env: caWest1Env,
       });
       
-      new BastionStack(this, 'BastionCaCentralStack', {
+      const bastionCaCentralStack = new BastionStack(this, 'BastionCaCentralStack', {
         vpc: vpcCaCentralStack.vpc,
         env: caCentral1Env,
       });
@@ -96,6 +98,19 @@ export class TmPipelineAppStage extends cdk.Stage {
         applicationLoadbalancer: ecsCaCentral1Stack.loadbalancer,
       }
       new TmCloudfrontStack(this, 'CustomCloudfrontStack', cloudFrontStackProps);
+
+      new TmRdsNetworkSecondaryRegionStack(this, 'rdsNetworkSecondaryRegion', {
+        env: caWest1Env,
+        vpc: vpcCaWestStack.vpc,
+        bastionHost: bastionCaWestStack.securityGroupBastion,
+      });
+      
+      new TmRdsAuroraMysqlServerlessStack(this, 'TmRdsAuroraMysqlServerless', {
+        env: caCentral1Env,
+        vpc: vpcCaCentralStack.vpc,
+        bastionHost: bastionCaCentralStack.securityGroupBastion,
+        enableGlobal: true,
+      });
     }
 
 }
