@@ -1,6 +1,7 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from "constructs";
 import { TmVpcbaseStack } from './tm-vpc-base-stack';
+import { BastionStack } from './tm-bastion-stack';
  
 
 export class TmPipelineAppStage extends cdk.Stage {
@@ -17,15 +18,26 @@ export class TmPipelineAppStage extends cdk.Stage {
         //region: 'ca-west-1',
         region: 'us-west-1',
       }
-      
 
-      new TmVpcbaseStack(this, 'vpcCaCentral2Stack', {
+      const vpcCaWestStack = new TmVpcbaseStack(this, 'vpcCaCentral2Stack', {
         env: caCentral1Env,
         range: '10.3.0.0/16',
       });
-      new TmVpcbaseStack(this, 'vpcCaWest2Stack', {
+
+
+      const vpcCaCentralStack = new TmVpcbaseStack(this, 'vpcCaWest2Stack', {
         env: caWest1Env,
         range: '10.4.0.0/16',
+      });
+
+      new BastionStack(this, 'BastionCaWestStack', {
+        vpc: vpcCaWestStack.vpc,
+        env: caWest1Env,
+      });
+      
+      new BastionStack(this, 'BastionCaCentralStack', {
+        vpc: vpcCaCentralStack.vpc,
+        env: caCentral1Env,
       });
     
     }
