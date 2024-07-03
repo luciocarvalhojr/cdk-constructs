@@ -1,6 +1,7 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as pipelines from 'aws-cdk-lib/pipelines';
+import * as iam from 'aws-cdk-lib/aws-iam';
 //import { TmPipeline, TmPipelineProps } from '../../../src';
 import { TmPipelineAppStage } from './tm-app-stage';
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
@@ -12,7 +13,8 @@ export class TmPipelineStack extends cdk.Stack {
   const pipeline = new pipelines.CodePipeline(this, 'TmPipelineStack', {
     crossAccountKeys: true,
     pipelineName: 'TmPipelineStack',
-    synth: new pipelines.ShellStep('Synth', {
+    //synth: new pipelines.ShellStep('Synth', {
+    synth: new pipelines.CodeBuildStep('Synth', {
       // From codecommit.Repository.fromRepositoryName
       //input: pipelines.CodePipelineSource.codeCommit(repository, props.repoBranch),
       input: pipelines.CodePipelineSource.connection( 'tm-lcarvalho/cdk-constructs', 'main', {
@@ -28,6 +30,12 @@ export class TmPipelineStack extends cdk.Stack {
         'pwd'
       ],
       primaryOutputDirectory: 'examples/tm-webapp/cdk.out',
+      rolePolicyStatements: [
+        new iam.PolicyStatement({
+          actions: ['ec2:DescribeAvailabilityZones'],
+          resources: ['*'],
+        }),
+      ],
     }),
   });
 
