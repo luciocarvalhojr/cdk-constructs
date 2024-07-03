@@ -19,13 +19,13 @@ export class TmPipelineAppStage extends cdk.Stage {
         region: 'us-west-1',
       }
 
-      const vpcCaWestStack = new TmVpcbaseStack(this, 'vpcCaCentral2Stack', {
+      const vpcCaCentralStack = new TmVpcbaseStack(this, 'vpcCaCentral2Stack', {
         env: caCentral1Env,
         range: '10.3.0.0/16',
       });
 
 
-      const vpcCaCentralStack = new TmVpcbaseStack(this, 'vpcCaWest2Stack', {
+      const vpcCaWestStack = new TmVpcbaseStack(this, 'vpcCaWest2Stack', {
         env: caWest1Env,
         range: '10.4.0.0/16',
       });
