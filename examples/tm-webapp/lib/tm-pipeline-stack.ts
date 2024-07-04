@@ -20,14 +20,21 @@ export class TmPipelineStack extends cdk.Stack {
       input: pipelines.CodePipelineSource.connection( 'tm-lcarvalho/cdk-constructs', 'main', {
         connectionArn: 'arn:aws:codestar-connections:ca-central-1:654654470378:connection/72c0424f-3adc-4157-8f48-962db7dfaefd'
       }),
+      additionalInputs: {
+        'build': pipelines.CodePipelineSource.connection( 'tm-lcarvalho/cdk-constructs-build', 'main', {
+          connectionArn: 'arn:aws:codestar-connections:ca-central-1:654654470378:connection/72c0424f-3adc-4157-8f48-962db7dfaefd'
+        }),
+      },
       // Commands to run in the synth step
       installCommands: ['npm install', 'npm ci', 'npm install -g aws-cdk'],
       commands: [
+        'ls -al',
         'cd examples/tm-webapp',
         'npm install',
         'cdk synth',
         'find . -iname cdk.out',
-        'pwd'
+        'ls -al',
+        'pwd',
       ],
       primaryOutputDirectory: 'examples/tm-webapp/cdk.out',
       rolePolicyStatements: [
