@@ -83,7 +83,7 @@ export class TmApplicationLoadBalancedFargateService extends ecsPatterns.Applica
       },
       taskImageOptions: {
         //image: ecs.ContainerImage.fromAsset('lib/ecs/containerImage'),
-        image: ecs.ContainerImage.fromAsset('../../build'),
+        image: ecs.ContainerImage.fromAsset('../../build/build'),
         //image: ecs.ContainerImage.fromRegistry('amazon/amazon-ecs-sample'),
         containerPort: props.containerPort, // Optional: Specify the container port
         enableLogging: true,
