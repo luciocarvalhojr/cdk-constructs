@@ -35,9 +35,9 @@ export class TmEcsStack extends cdk.Stack {
     super(scope, id, props);
 
     // Get cloudFront prefixlist
-    const cloudFrontPrefixListId = new AwsManagedPrefixList(this, 'CloudfrontOriginPrefixList', {
+    const cloudFrontPrefixListId = new AwsManagedPrefixList(this, 'CloudfrontOriginPrefixList2', {
       // where and how to delete? 
-      name: 'com.amazonaws.global.cloudfront.origin-facing2',
+      name: 'com.amazonaws.global.cloudfront.origin-facing',
     }).prefixListId;
 
     // // Create a custom Security Group
