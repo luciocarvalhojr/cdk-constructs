@@ -29,7 +29,7 @@ export class TmPipelineAppStage extends cdk.Stage {
 
       const euWest3Env = {
         account: process.env.CDK_DEFAULT_ACCOUNT,
-        region: 'us-west-2',
+        region: 'eu-west-3',
       }
 
       const vpcCaCentralStack = new TmVpcbaseStack(this, 'vpcCaCentral2Stack', {
