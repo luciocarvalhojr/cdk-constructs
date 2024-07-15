@@ -15,6 +15,13 @@ The `cdk.json` file tells the CDK Toolkit how to execute your app.
 
 # Bootstrap projet
 
+## Create a mirroring before begging the deploy
+
+GitLab:
+
+https://docs.gitlab.com/ee/user/project/repository/mirror/push.html
+
+
 ## Create SSM entries for each account that is going to be used
 
 * Default repository branch  main `aws ssm put-parameter --name "repositoryBranch" --type "String" --value "main"`
