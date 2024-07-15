@@ -2,8 +2,8 @@ name: Mirror to CodeCommit
 
 on:
   push:
-    paths:
-      - "*"
+    branches:
+      - main
 
 jobs:
   mirror_to_codecommit_prod:

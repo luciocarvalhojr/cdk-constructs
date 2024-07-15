@@ -18,6 +18,7 @@ The `cdk.json` file tells the CDK Toolkit how to execute your app.
 ## Create a mirroring before begging the deploy
 
 [GitLab to CodeCommit](https://docs.gitlab.com/ee/user/project/repository/mirror/push.html)
+[Azure DevOps to CodeCommit](https://aws.amazon.com/blogs/devops/use-aws-codecommit-to-mirror-an-azure-devops-repository-using-an-azure-devops-pipeline/)
 
 ## Create SSM entries for each account that is going to be used
 
