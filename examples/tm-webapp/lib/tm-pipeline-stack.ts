@@ -2,22 +2,26 @@ import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as pipelines from 'aws-cdk-lib/pipelines';
 import * as iam from 'aws-cdk-lib/aws-iam';
-//import { TmPipeline, TmPipelineProps } from '../../../src';
 import { TmPipelineAppStage } from './tm-app-stage';
+import * as ssm from 'aws-cdk-lib/aws-ssm';
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class TmPipelineStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
+  const repositoryBranch =  ssm.StringParameter.valueForStringParameter(
+    this, 'repositoryBranch');
+
   const pipeline = new pipelines.CodePipeline(this, 'TmPipelineStack', {
     crossAccountKeys: true,
+    //reuseCrossRegionSupportStacks: true,
     pipelineName: 'TmPipelineStack',
     //synth: new pipelines.ShellStep('Synth', {
     synth: new pipelines.CodeBuildStep('Synth', {
       // From codecommit.Repository.fromRepositoryName
       //input: pipelines.CodePipelineSource.codeCommit(repository, props.repoBranch),
-      input: pipelines.CodePipelineSource.connection( 'tm-lcarvalho/cdk-constructs', 'main', {
+      input: pipelines.CodePipelineSource.connection( 'tm-lcarvalho/cdk-constructs', repositoryBranch, {
         connectionArn: 'arn:aws:codestar-connections:ca-central-1:654654470378:connection/72c0424f-3adc-4157-8f48-962db7dfaefd'
       }),
       additionalInputs: {
