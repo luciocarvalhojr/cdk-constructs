@@ -17,10 +17,7 @@ The `cdk.json` file tells the CDK Toolkit how to execute your app.
 
 ## Create a mirroring before begging the deploy
 
-GitLab:
-
-https://docs.gitlab.com/ee/user/project/repository/mirror/push.html
-
+[GitLab to CodeCommit](https://docs.gitlab.com/ee/user/project/repository/mirror/push.html)
 
 ## Create SSM entries for each account that is going to be used
 
